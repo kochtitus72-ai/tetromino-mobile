@@ -1,7 +1,8 @@
+# .github/workflows/android-build.yml
 name: Build Android APK
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   build:
@@ -13,24 +14,26 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'yarn'
+          node-version: 18 # Better for older React projects
+          cache: "npm"
 
       - name: Install Dependencies
-        run: yarn install --immutable
+        # --legacy-peer-deps prevents crashes with older React/Redux versions
+        run: npm install --legacy-peer-deps
 
-      - name: Build Next.js Static Export
-        run: yarn build # This creates the 'out' folder
+      - name: Build Web Project
+        run: npm run build
 
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
-          java-version: '17'
+          distribution: "zulu"
+          java-version: "17"
 
       - name: Capacitor Sync
         run: |
-          npx cap sync android
+          # We force a specific Capacitor version (e.g., 5 or 6) that works with Node 18
+          npx @capacitor/cli@6 sync android
 
       - name: Build Android APK
         run: |
