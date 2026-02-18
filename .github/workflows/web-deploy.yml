@@ -4,6 +4,7 @@ on:
     branches: [main, master]
     paths:
       - "src/**"
+      - "content/**"
       - "public/**"
       - "next.config.mjs"
       - "package.json"
