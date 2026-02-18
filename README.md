@@ -32,4 +32,4 @@ Play the game directly in your browser:
    cd tetromino-mobile
    yarn install
    yarn dev
-   yarn build -- build will generate an out folder so delete the current one
+   yarn build 
