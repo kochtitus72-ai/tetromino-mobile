@@ -14,11 +14,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18 # Better for older React projects
+          node-version: 18
           cache: "npm"
 
       - name: Install Dependencies
-        # --legacy-peer-deps prevents crashes with older React/Redux versions
         run: npm install --legacy-peer-deps
 
       - name: Build Web Project
@@ -28,11 +27,11 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: "zulu"
-          java-version: "17"
+          java-version: "21" # Updated to fix your 'invalid source release' error
 
       - name: Capacitor Sync
         run: |
-          # We force a specific Capacitor version (e.g., 5 or 6) that works with Node 18
+          # This ensures the android folder is ready and synchronized
           npx @capacitor/cli@6 sync android
 
       - name: Build Android APK

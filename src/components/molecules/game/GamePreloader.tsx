@@ -1,10 +1,14 @@
-import classNames from 'classnames';
-import {FC, useMemo} from 'react';
-import {useSelector} from 'react-redux';
-import {AppSelectors} from '../../../store/app/app-selectors';
-import {GameAudioLoader} from '../../atoms/game/GameAudioLoader';
-import {AUDIO_FILES, PRELOAD_AUDIO} from '../../particles/audio.types';
-import {ClassNameProps} from '../../particles/particles.types';
+// this file may be causing the buggy loading feature in the android app
+// Sometimes the game works fine
+// Sometimes it just stalls saying loading
+// This needs to be addressed
+import classNames from "classnames";
+import { FC, useMemo } from "react";
+import { useSelector } from "react-redux";
+import { AppSelectors } from "../../../store/app/app-selectors";
+import { GameAudioLoader } from "../../atoms/game/GameAudioLoader";
+import { AUDIO_FILES, PRELOAD_AUDIO } from "../../particles/audio.types";
+import { ClassNameProps } from "../../particles/particles.types";
 
 export interface GamePreloaderProps {
     onLoaded: () => void;
@@ -12,19 +16,19 @@ export interface GamePreloaderProps {
 
 export const GamePreloader: FC<GamePreloaderProps & ClassNameProps> = ({
     onLoaded,
-    className
+    className,
 }) => {
     const musicType = useSelector(AppSelectors.musicType);
     const preload = useMemo(
         () => [...PRELOAD_AUDIO, AUDIO_FILES[musicType]],
-        [musicType]
+        [musicType],
     );
     return (
         <div
             data-testid="game-loader"
             className={classNames(
                 className,
-                'flex font-mono items-center justify-center text-2xl'
+                "flex font-mono items-center justify-center text-2xl",
             )}
         >
             Loading
