@@ -1,7 +1,8 @@
 name: Deploy Web Version
 on:
   push:
-    branches: [main]
+    branches: [main, master]
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -9,17 +10,27 @@ jobs:
       pages: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: "npm"
-      - run: npm install
-      - run: npm run build
-      - name: Upload artifact
+
+      - name: Install Dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build Web Project
+        run: npm run build
+
+      - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # Next.js 'output: export' creates the 'out' folder
           path: ./out
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
