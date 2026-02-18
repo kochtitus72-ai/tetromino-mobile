@@ -2,6 +2,12 @@ name: Deploy Web Version
 on:
   push:
     branches: [main, master]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "next.config.mjs"
+      - "package.json"
+      - ".github/workflows/web-deploy.yml"
 
 jobs:
   build-and-deploy:

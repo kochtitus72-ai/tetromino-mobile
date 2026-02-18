@@ -3,6 +3,11 @@ name: Build Android APK
 on:
   push:
     branches: [main, master]
+    paths:
+      - "android/**"
+      - "src/**"
+      - "package.json"
+      - ".github/workflows/android-build.yml"
 
 jobs:
   build:
