@@ -4,6 +4,8 @@ const nextConfig = {
     images: {
         unoptimized: true,
     },
+    // This matches your repository name
+    basePath: "/tetromino-mobile",
 };
 
 export default nextConfig;
